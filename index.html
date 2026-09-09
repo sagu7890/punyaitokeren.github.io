@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUNYA ITO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- 1. LOADING SCREEN -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-text">
+                <span>J</span><span>I</span><span>T</span><span>R</span><span>O</span><span>N</span>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. BACKGROUND PARTICLES -->
+    <canvas id="particles"></canvas>
+
+    <!-- 3. NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-dot"></span>
+            <span class="logo-text">JITRON</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="purnama-toggle" id="purnamaToggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- 4. HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <!-- Kiri: Teks -->
+            <div class="hero-text fade-in">
+                <p class="greeting">Hello, I'm</p>
+                <h1 class="name">JITRON</h1>
+                
+                <!-- Fitur Baru: Typing Animation -->
+                <div class="typing-container">
+                    <p class="typing-text">I am a <span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
+                </div>
+
+                <div class="info-line">
+                    <span class="badge">NIM: 224611187</span>
+                    <span class="badge">Teknik Informatika</span>
+                </div>
+                <p class="description">
+                    Mengubah ide menjadi pengalaman digital yang elegan dan fungsional. Fokus pada pengembangan web modern, UI/UX design, dan solusi digital premium.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Hire Me
+                    </a>
+                    <!-- Fitur Baru: Download CV -->
+                    <a href="cv-jitron.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </div>
+            </div>
+
+            <!-- Kanan: Foto -->
+            <div class="hero-image fade-in delay">
+                <div class="photo-frame">
+                    <div class="frame-glow"></div>
+                    <div class="frame-glass">
+                        <img src="image.png" alt="Foto Profil JITRON" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block;">
+                    </div>
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Icons (Sudah diperbaiki strukturnya) -->
+        <div class="social-icons fade-in delay-2">
+            <a href="https://github.com/sagu7890" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/jidrnnn_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/jidron-ito/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 5. SKILLS SECTION -->
+    <section class="section" id="skills">
+        <div class="section-container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, JavaScript, React, Node.js</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>UI/UX Design</h3>
+                    <p>Figma, Adobe XD, Design Systems</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Backend & DB</h3>
+                    <p>MySQL, MongoDB, Express, REST API</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Dev</h3>
+                    <p>React Native, Flutter, Responsive</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FITUR BARU: STATISTICS SECTION -->
+    <section class="section stats-section" id="stats">
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 class="stat-number" data-target="15">0</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="stat-number" data-target="10">0</h3>
+                    <p>Happy Clients</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="stat-number" data-target="3">0</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="stat-number" data-target="5">0</h3>
+                    <p>Awards Won</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FITUR BARU: SERVICES SECTION -->
+    <section class="section" id="services">
+        <div class="section-container">
+            <h2 class="section-title">My Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Web Development</h3>
+                    <p>Membangun website responsif, cepat, dan modern menggunakan teknologi terbaru.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>UI/UX Design</h3>
+                    <p>Merancang antarmuka pengguna yang estetis, intuitif, dan berfokus pada pengalaman terbaik.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile Development</h3>
+                    <p>Mengembangkan aplikasi mobile cross-platform yang mulus dan fungsional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. GALLERY SECTION (Sudah ditambah data- attributes untuk Modal) -->
+    <section class="section" id="gallery">
+        <div class="section-container">
+            <h2 class="section-title">My Work</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-title="E-Commerce Platform" data-desc="Platform belanja online lengkap dengan fitur keranjang, checkout, dan payment gateway." data-tech="React, Node.js, MongoDB">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop" alt="Project 1">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>E-Commerce Platform</h3>
+                            <p>Web Development</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-title="Analytics Dashboard" data-desc="Dashboard analitik real-time untuk memvisualisasikan data bisnis dengan grafik interaktif." data-tech="Vue.js, D3.js, Firebase">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Project 2">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Analytics Dashboard</h3>
+                            <p>UI/UX Design</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-title="Mobile Banking App" data-desc="Aplikasi perbankan mobile dengan fitur transfer, QRIS, dan manajemen keuangan pribadi." data-tech="React Native, Express">
+                    <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&h=450&fit=crop" alt="Project 3">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Mobile Banking App</h3>
+                            <p>Mobile Dev</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-title="Task Management" data-desc="Sistem manajemen tugas kolaboratif dengan fitur real-time update dan notifikasi." data-tech="Next.js, PostgreSQL">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Project 4">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Task Management</h3>
+                            <p>Full Stack</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-title="API Integration" data-desc="Integrasi RESTful API pihak ketiga untuk sistem otomasi dan sinkronisasi data." data-tech="Python, FastAPI">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=450&fit=crop" alt="Project 5">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>API Integration</h3>
+                            <p>Backend</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-title="Portfolio Website" data-desc="Website portofolio personal dengan desain dark luxury dan animasi interaktif." data-tech="HTML, CSS, JavaScript">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=450&fit=crop" alt="Project 6">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Portfolio Website</h3>
+                            <p>Frontend</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 9. CONTACT SECTION -->
+    <section class="section" id="contact">
+        <div class="section-container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-desc">Mari berkolaborasi membuat sesuatu yang luar biasa.</p>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Nama Lengkap</label>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" placeholder="email@contoh.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label for="message"><i class="fas fa-comment-dots"></i> Pesan</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary submit-btn">
+                    <i class="fas fa-paper-plane"></i> <span>Kirim Pesan</span>
+                </button>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+                <i class="fas fa-check-circle"></i>
+                <h3>Pesan Terkirim!</h3>
+                <p>Terima kasih, saya akan segera membalas pesan Anda.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 JITRON. Crafted with <span class="gold">♦</span> passion.</p>
+    </footer>
+
+    <!-- 10. FITUR BARU: MODAL POPUP & SCROLL TO TOP -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <h3 id="modalTitle">Project Title</h3>
+            <p id="modalDesc">Project description goes here.</p>
+            <div class="modal-tech">
+                <span>Tech Stack:</span>
+                <p id="modalTech">React, Node.js</p>
+            </div>
+            <div class="modal-actions">
+                <a href="#" class="btn btn-primary btn-sm"><i class="fab fa-github"></i> Source Code</a>
+                <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- SCRIPT -->
+    <script src="script.js"></script>
+</body>
+</html>
