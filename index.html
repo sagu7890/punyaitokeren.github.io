@@ -1,319 +1,2132 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUNYA ITO</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="JITRON - Web Developer & UI/UX Designer Portfolio">
+<title>JITRON | Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.0/index.min.css">
+<style>
+/* ============ RESET & BASE ============ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #111113;
+  --text: #ffffff;
+  --text-soft: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --violet: #8b5cf6;
+  --violet-bright: #a78bfa;
+  --violet-deep: #6d28d9;
+  --gold: #d4af37;
+  --gold-soft: rgba(212, 175, 55, 0.6);
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 20px 60px rgba(139, 92, 246, 0.15);
+  --nav-height: 80px;
+  --section-padding: 100px;
+  --container-max: 1200px;
+}
+body.light-mode {
+  --bg: #f5f5f7;
+  --bg-2: #ffffff;
+  --text: #1a1a1a;
+  --text-soft: rgba(0, 0, 0, 0.7);
+  --text-muted: rgba(0, 0, 0, 0.5);
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  transition: background 0.6s ease, color 0.6s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ============ LOADING SCREEN ============ */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.loading-screen.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader {
+  text-align: center;
+  position: relative;
+}
+.loader-circle {
+  width: clamp(80px, 15vw, 120px);
+  height: clamp(80px, 15vw, 120px);
+  border: 3px solid transparent;
+  border-top-color: var(--violet-bright);
+  border-right-color: var(--gold);
+  border-radius: 50%;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: spinCircle 1.5s linear infinite;
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5),
+    inset 0 0 20px rgba(139, 92, 246, 0.2);
+}
+.loader-circle::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 3px solid transparent;
+  border-top-color: var(--gold);
+  border-right-color: var(--violet-bright);
+  border-radius: 50%;
+  animation: spinCircle 2s linear infinite reverse;
+}
+@keyframes spinCircle {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg); }
+}
+.loader-text {
+  display: flex;
+  gap: clamp(2px, 0.5vw, 5px);
+  margin: 60px 0 30px;
+  justify-content: center;
+}
+.loader-text span {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: letterFade 0.6s ease forwards;
+}
+.loader-text span:nth-child(1) { animation-delay: 0.1s; }
+.loader-text span:nth-child(2) { animation-delay: 0.2s; }
+.loader-text span:nth-child(3) { animation-delay: 0.3s; }
+.loader-text span:nth-child(4) { animation-delay: 0.4s; }
+.loader-text span:nth-child(5) { animation-delay: 0.5s; }
+.loader-text span:nth-child(6) { animation-delay: 0.6s; }
+@keyframes letterFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+.loader-bar {
+  width: clamp(150px, 40vw, 200px);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.loader-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--violet-bright), var(--gold));
+  border-radius: 2px;
+  animation: loadBar 2s ease-in-out forwards;
+  box-shadow: 0 0 10px var(--violet-bright);
+}
+@keyframes loadBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+body.light-mode .loading-screen {
+  background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 50%, #f5f5f7 100%);
+}
+
+.photo-frame {
+  animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4)); }
+  100% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6)); }
+}
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+}
+.btn-primary:hover::after {
+  left: 100%;
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+  padding: 12px 5%;
+}
+body.light-mode .navbar.scrolled {
+  background: rgba(245, 245, 247, 0.95);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+}
+
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============ NAVBAR ============ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.4s ease;
+  min-height: var(--nav-height);
+}
+body.light-mode .navbar {
+  background: rgba(245, 245, 247, 0.7);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+.logo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--violet), var(--gold));
+  box-shadow: 0 0 15px var(--violet-bright);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+.logo-text {
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nav-links {
+  display: flex;
+  gap: clamp(15px, 3vw, 35px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  padding: 8px 0;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--violet), var(--gold));
+  transition: width 0.3s ease;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.purnama-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  color: var(--violet-bright);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3),
+    inset 0 0 15px rgba(139, 92, 246, 0.15);
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+.purnama-toggle:hover {
+  transform: rotate(20deg) scale(1.05);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5),
+    inset 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+}
+.menu-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  padding: calc(var(--nav-height) + 40px) 5% 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(30px, 5vw, 60px);
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+.hero-text .greeting {
+  color: var(--text-muted);
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.hero-text .name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--violet-bright) 0%, var(--violet) 40%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 25px;
+  text-shadow: 0 0 60px rgba(139, 92, 246, 0.3);
+}
+.info-line {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+.badge {
+  padding: 6px 14px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+  color: var(--text-soft);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+.hero-text .description {
+  color: var(--text-soft);
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.8;
+  max-width: 500px;
+  margin-bottom: 35px;
+}
+.description .highlight {
+  color: var(--text);
+  font-weight: 500;
+  background: linear-gradient(90deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CTA Buttons */
+.cta-buttons {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  min-height: 48px;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--violet) 0%, var(--violet-deep) 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--gold), var(--violet-bright));
+  transition: left 0.5s ease;
+  z-index: 0;
+}
+.btn-primary:hover::before {
+  left: 0;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.6);
+}
+.btn-primary i,
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+}
+
+/* ============ PHOTO FRAME ============ */
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+.photo-frame {
+  position: relative;
+  width: min(420px, 90vw);
+  height: min(520px, 110vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotateY(-3deg); }
+  50% { transform: translateY(-20px) rotateY(3deg); }
+}
+.frame-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle at 30% 30%, var(--violet-bright), transparent 50%),
+    radial-gradient(circle at 70% 70%, var(--gold-soft), transparent 50%);
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  filter: blur(40px);
+  opacity: 0.6;
+  z-index: 0;
+  animation: morph 8s ease-in-out infinite;
+}
+@keyframes morph {
+  0%, 100% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; }
+  50% { border-radius: 60% 40% 45% 55% / 40% 60% 50% 60%; }
+}
+.frame-glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(212, 175, 55, 0.1));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px;
+  z-index: 1;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(139, 92, 246, 0.3);
+  overflow: hidden;
+}
+.frame-glass::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  animation: shine 5s infinite;
+}
+@keyframes shine {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #1a1a2e, #2d1b4e);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--violet-bright);
+  position: relative;
+  overflow: hidden;
+}
+.photo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.photo-placeholder i {
+  font-size: 6rem;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.photo-placeholder span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  color: var(--text-soft);
+}
+
+/* Orbits */
+.orbit {
+  position: absolute;
+  border: 1px dashed rgba(139, 92, 246, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orbit-1 {
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  animation: rotate 20s linear infinite;
+}
+.orbit-2 {
+  width: 140%;
+  height: 140%;
+  top: -20%;
+  left: -20%;
+  border-color: rgba(212, 175, 55, 0.2);
+  animation: rotate 30s linear infinite reverse;
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============ SOCIAL ICONS ============ */
+.social-icons {
+  position: absolute;
+  bottom: 40px;
+  left: 5%;
+  display: flex;
+  gap: 18px;
+  z-index: 3;
+}
+.social-icons a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  font-size: 1rem;
+}
+.social-icons a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* ============ SECTIONS ============ */
+.section {
+  padding: var(--section-padding) 5%;
+  position: relative;
+  z-index: 2;
+}
+.section-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 60px);
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(15px, 3vw, 25px);
+}
+.skill-card {
+  padding: clamp(25px, 4vw, 35px) clamp(20px, 3vw, 25px);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s ease;
+  text-align: center;
+}
+.skill-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--violet-bright);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+}
+.skill-card i {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.skill-card h3 {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 10px;
+}
+.skill-card p {
+  color: var(--text-soft);
+  font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+  line-height: 1.6;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(15px, 3vw, 25px);
+}
+.gallery-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(212, 175, 55, 0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(5px);
+}
+.gallery-info {
+  text-align: center;
+  padding: 20px;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+.gallery-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.gallery-info p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  margin-bottom: 15px;
+}
+.gallery-link {
+  display: inline-flex;
+  width: 45px;
+  height: 45px;
+  background: white;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  color: var(--violet);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.gallery-link:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.gallery-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+}
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+.gallery-item:hover .gallery-info {
+  transform: translateY(0);
+}
+
+.contact-desc {
+  text-align: center;
+  color: var(--text-soft);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section .btn-primary {
+  margin: 0 auto;
+  display: inline-flex;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 5%;
+  color: var(--text-muted);
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+  border-top: 1px solid var(--glass-border);
+  position: relative;
+  z-index: 2;
+}
+.footer .gold {
+  color: var(--gold);
+}
+
+/* ============ FADE-IN ANIMATIONS ============ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+}
+.fade-in.delay { animation-delay: 0.3s; }
+.fade-in.delay-2 { animation-delay: 0.6s; }
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ CONTACT FORM ============ */
+.contact-form {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: clamp(25px, 5vw, 40px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.form-group {
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.form-group.full {
+  grid-column: 1 / -1;
+}
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.form-group label i {
+  color: var(--violet-bright);
+  font-size: 0.8rem;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  outline: none;
+  min-height: 48px;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--violet-bright);
+  background: rgba(139, 92, 246, 0.05);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 16px 32px;
+  font-size: 1rem;
+}
+
+.form-success {
+  display: none;
+  max-width: 500px;
+  margin: 40px auto 0;
+  text-align: center;
+  padding: 40px;
+  background: var(--glass);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  animation: fadeInUp 0.6s ease;
+  width: 100%;
+}
+.form-success.show {
+  display: block;
+}
+.form-success i {
+  font-size: 3.5rem;
+  color: #22c55e;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.5));
+}
+.form-success h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.form-success p {
+  color: var(--text-soft);
+}
+
+/* ============ TYPING ANIMATION ============ */
+.typing-container {
+  margin-bottom: 20px;
+  min-height: 30px;
+}
+.typing-text {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: var(--text-soft);
+  font-weight: 500;
+}
+.typed-text {
+  color: var(--violet-bright);
+  font-weight: 600;
+}
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background-color: var(--gold);
+  animation: blink 1s infinite;
+  min-height: 1em;
+  vertical-align: middle;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============ STATISTICS ============ */
+.stats-section {
+  padding: 60px 5%;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(15px, 3vw, 20px);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: clamp(25px, 5vw, 40px);
+  backdrop-filter: blur(15px);
+}
+.stat-card {
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+  line-height: 1.1;
+}
+.stat-card p {
+  color: var(--text-soft);
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  letter-spacing: 1px;
+}
+
+/* ============ SERVICES ============ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(15px, 3vw, 25px);
+}
+.service-card {
+  padding: clamp(30px, 5vw, 40px) clamp(20px, 4vw, 30px);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s ease;
+  text-align: center;
+}
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+}
+.service-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(212, 175, 55, 0.1));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--violet-bright);
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+.service-card:hover .service-icon {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, var(--violet), var(--gold));
+  color: white;
+}
+.service-card h3 {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  margin-bottom: 15px;
+}
+.service-card p {
+  color: var(--text-soft);
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  line-height: 1.6;
+}
+
+/* ============ MODAL ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+.modal-content {
+  background: #111113;
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: clamp(25px, 5vw, 40px);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.modal-close:hover {
+  background: var(--violet);
+  transform: rotate(90deg);
+}
+.modal-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 15px;
+  padding-right: 40px;
+  background: linear-gradient(135deg, var(--violet-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.modal-content p {
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+.modal-tech {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+}
+.modal-tech span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.modal-tech p {
+  margin: 5px 0 0;
+  color: var(--gold);
+  font-weight: 500;
+}
+.modal-actions {
+  display: flex;
+  gap: 15px;
+}
+.btn-sm {
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  flex: 1;
+  justify-content: center;
+}
+
+/* ============ SCROLL TO TOP ============ */
+.scroll-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.scroll-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.6);
+}
+
+/* ============ RESPONSIVE: LARGE TABLETS (≤1200px) ============ */
+@media (max-width: 1200px) {
+  :root {
+    --section-padding: 80px;
+  }
+  .hero-content {
+    gap: 40px;
+  }
+  .photo-frame {
+    width: min(380px, 85vw);
+    height: min(470px, 100vw);
+  }
+}
+
+/* ============ RESPONSIVE: TABLETS (≤992px) ============ */
+@media (max-width: 992px) {
+  :root {
+    --section-padding: 70px;
+  }
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 50px;
+  }
+  .hero-text .description {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .info-line {
+    justify-content: center;
+  }
+  .cta-buttons {
+    justify-content: center;
+  }
+  .hero-image {
+    order: -1;
+  }
+  .photo-frame {
+    width: min(340px, 70vw);
+    height: min(420px, 85vw);
+  }
+  .social-icons {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .hero {
+    padding-bottom: 40px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============ RESPONSIVE: SMALL TABLETS (≤768px) ============ */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 60px;
+    --nav-height: 70px;
+  }
+  .menu-toggle {
+    display: flex;
+  }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    transition: right 0.4s ease;
+    z-index: 100;
+    border-left: 1px solid var(--glass-border);
+  }
+  body.light-mode .nav-links {
+    background: rgba(245, 245, 247, 0.98);
+  }
+  .nav-links.open {
+    right: 0;
+  }
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 12px 0;
+  }
+  .navbar {
+    padding: 15px 5%;
+  }
+  .photo-frame {
+    width: min(300px, 75vw);
+    height: min(370px, 90vw);
+  }
+  .photo-placeholder i {
+    font-size: 4rem;
+  }
+  .photo-placeholder span {
+    font-size: 1.2rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 25px;
+  }
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  .modal-content {
+    padding: 25px;
+  }
+  .modal-actions {
+    flex-direction: column;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .scroll-top {
+    bottom: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* ============ RESPONSIVE: MOBILE (≤576px) ============ */
+@media (max-width: 576px) {
+  :root {
+    --section-padding: 50px;
+  }
+  .hero {
+    padding-top: calc(var(--nav-height) + 20px);
+    padding-bottom: 30px;
+  }
+  .hero-text .name {
+    margin-bottom: 20px;
+  }
+  .hero-text .description {
+    margin-bottom: 25px;
+  }
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+  .photo-frame {
+    width: min(280px, 80vw);
+    height: min(340px, 95vw);
+  }
+  .frame-glow {
+    inset: -15px;
+    filter: blur(30px);
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+  .stat-number {
+    font-size: 2rem;
+  }
+  .contact-form {
+    padding: 25px 20px;
+    border-radius: 20px;
+  }
+  .form-success {
+    padding: 30px 20px;
+  }
+  .social-icons {
+    gap: 12px;
+  }
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 0.95rem;
+  }
+  .orbit-1, .orbit-2 {
+    display: none;
+  }
+}
+
+/* ============ RESPONSIVE: SMALL MOBILE (≤400px) ============ */
+@media (max-width: 400px) {
+  .hero-text .name {
+    letter-spacing: -1px;
+  }
+  .badge {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+  .info-line {
+    gap: 8px;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cta-buttons .btn {
+    width: 100%;
+  }
+  .photo-frame {
+    width: min(260px, 85vw);
+    height: min(320px, 100vw);
+  }
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  .stat-card p {
+    font-size: 0.7rem;
+  }
+}
+
+/* ============ LANDSCAPE MOBILE ============ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding: 100px 5% 40px;
+  }
+  .hero-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .photo-frame {
+    width: min(200px, 40vw);
+    height: min(250px, 50vw);
+  }
+  .hero-text .name {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 15px;
+  }
+  .hero-text .description {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============ HIGH CONTRAST ============ */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --text-soft: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* ============ PRINT ============ */
+@media print {
+  .navbar, .social-icons, .scroll-top, #particles, .loading-screen, .menu-toggle {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: black;
+  }
+  .section {
+    padding: 20px 0;
+    page-break-inside: avoid;
+  }
+}
+</style>
 </head>
 <body>
 
-    <!-- 1. LOADING SCREEN -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader">
-            <div class="loader-circle"></div>
-            <div class="loader-text">
-                <span>J</span><span>I</span><span>T</span><span>R</span><span>O</span><span>N</span>
-            </div>
-            <div class="loader-bar">
-                <div class="loader-bar-fill"></div>
-            </div>
-        </div>
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loader">
+    <div class="loader-circle"></div>
+    <div class="loader-text">
+      <span>J</span><span>I</span><span>T</span><span>R</span><span>O</span><span>N</span>
     </div>
-
-    <!-- 2. BACKGROUND PARTICLES -->
-    <canvas id="particles"></canvas>
-
-    <!-- 3. NAVBAR -->
-    <nav class="navbar">
-        <div class="logo">
-            <span class="logo-dot"></span>
-            <span class="logo-text">JITRON</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="purnama-toggle" id="purnamaToggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
-        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
-
-    <!-- 4. HERO SECTION -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <!-- Kiri: Teks -->
-            <div class="hero-text fade-in">
-                <p class="greeting">Hello, I'm</p>
-                <h1 class="name">JITRON</h1>
-                
-                <!-- Fitur Baru: Typing Animation -->
-                <div class="typing-container">
-                    <p class="typing-text">I am a <span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
-                </div>
-
-                <div class="info-line">
-                    <span class="badge">NIM: 224611187</span>
-                    <span class="badge">Teknik Informatika</span>
-                </div>
-                <p class="description">
-                    Mengubah ide menjadi pengalaman digital yang elegan dan fungsional. Fokus pada pengembangan web modern, UI/UX design, dan solusi digital premium.
-                </p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Hire Me
-                    </a>
-                    <!-- Fitur Baru: Download CV -->
-                    <a href="cv-jitron.pdf" download class="btn btn-secondary">
-                        <i class="fas fa-download"></i> Download CV
-                    </a>
-                </div>
-            </div>
-
-            <!-- Kanan: Foto -->
-            <div class="hero-image fade-in delay">
-                <div class="photo-frame">
-                    <div class="frame-glow"></div>
-                    <div class="frame-glass">
-                        <img src="image.png" alt="Foto Profil JITRON" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block;">
-                    </div>
-                    <div class="orbit orbit-1"></div>
-                    <div class="orbit orbit-2"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Social Icons (Sudah diperbaiki strukturnya) -->
-        <div class="social-icons fade-in delay-2">
-            <a href="https://github.com/sagu7890" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.instagram.com/jidrnnn_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/jidron-ito/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- 5. SKILLS SECTION -->
-    <section class="section" id="skills">
-        <div class="section-container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Web Development</h3>
-                    <p>HTML, CSS, JavaScript, React, Node.js</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-palette"></i>
-                    <h3>UI/UX Design</h3>
-                    <p>Figma, Adobe XD, Design Systems</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database"></i>
-                    <h3>Backend & DB</h3>
-                    <p>MySQL, MongoDB, Express, REST API</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Mobile Dev</h3>
-                    <p>React Native, Flutter, Responsive</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. FITUR BARU: STATISTICS SECTION -->
-    <section class="section stats-section" id="stats">
-        <div class="section-container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3 class="stat-number" data-target="15">0</h3>
-                    <p>Projects Completed</p>
-                </div>
-                <div class="stat-card">
-                    <h3 class="stat-number" data-target="10">0</h3>
-                    <p>Happy Clients</p>
-                </div>
-                <div class="stat-card">
-                    <h3 class="stat-number" data-target="3">0</h3>
-                    <p>Years Experience</p>
-                </div>
-                <div class="stat-card">
-                    <h3 class="stat-number" data-target="5">0</h3>
-                    <p>Awards Won</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. FITUR BARU: SERVICES SECTION -->
-    <section class="section" id="services">
-        <div class="section-container">
-            <h2 class="section-title">My Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3>Web Development</h3>
-                    <p>Membangun website responsif, cepat, dan modern menggunakan teknologi terbaru.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
-                    <h3>UI/UX Design</h3>
-                    <p>Merancang antarmuka pengguna yang estetis, intuitif, dan berfokus pada pengalaman terbaik.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <h3>Mobile Development</h3>
-                    <p>Mengembangkan aplikasi mobile cross-platform yang mulus dan fungsional.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. GALLERY SECTION (Sudah ditambah data- attributes untuk Modal) -->
-    <section class="section" id="gallery">
-        <div class="section-container">
-            <h2 class="section-title">My Work</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-title="E-Commerce Platform" data-desc="Platform belanja online lengkap dengan fitur keranjang, checkout, dan payment gateway." data-tech="React, Node.js, MongoDB">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop" alt="Project 1">
-                    <div class="gallery-overlay">
-                        <div class="gallery-info">
-                            <h3>E-Commerce Platform</h3>
-                            <p>Web Development</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-title="Analytics Dashboard" data-desc="Dashboard analitik real-time untuk memvisualisasikan data bisnis dengan grafik interaktif." data-tech="Vue.js, D3.js, Firebase">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Project 2">
-                    <div class="gallery-overlay">
-                        <div class="gallery-info">
-                            <h3>Analytics Dashboard</h3>
-                            <p>UI/UX Design</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-title="Mobile Banking App" data-desc="Aplikasi perbankan mobile dengan fitur transfer, QRIS, dan manajemen keuangan pribadi." data-tech="React Native, Express">
-                    <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&h=450&fit=crop" alt="Project 3">
-                    <div class="gallery-overlay">
-                        <div class="gallery-info">
-                            <h3>Mobile Banking App</h3>
-                            <p>Mobile Dev</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-title="Task Management" data-desc="Sistem manajemen tugas kolaboratif dengan fitur real-time update dan notifikasi." data-tech="Next.js, PostgreSQL">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Project 4">
-                    <div class="gallery-overlay">
-                        <div class="gallery-info">
-                            <h3>Task Management</h3>
-                            <p>Full Stack</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-title="API Integration" data-desc="Integrasi RESTful API pihak ketiga untuk sistem otomasi dan sinkronisasi data." data-tech="Python, FastAPI">
-                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=450&fit=crop" alt="Project 5">
-                    <div class="gallery-overlay">
-                        <div class="gallery-info">
-                            <h3>API Integration</h3>
-                            <p>Backend</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-title="Portfolio Website" data-desc="Website portofolio personal dengan desain dark luxury dan animasi interaktif." data-tech="HTML, CSS, JavaScript">
-                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=450&fit=crop" alt="Project 6">
-                    <div class="gallery-overlay">
-                        <div class="gallery-info">
-                            <h3>Portfolio Website</h3>
-                            <p>Frontend</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- 9. CONTACT SECTION -->
-    <section class="section" id="contact">
-        <div class="section-container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="contact-desc">Mari berkolaborasi membuat sesuatu yang luar biasa.</p>
-
-            <form class="contact-form" id="contactForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name"><i class="fas fa-user"></i> Nama Lengkap</label>
-                        <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="email" name="email" placeholder="email@contoh.com" required>
-                    </div>
-                </div>
-
-                <div class="form-group full">
-                    <label for="message"><i class="fas fa-comment-dots"></i> Pesan</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda di sini..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary submit-btn">
-                    <i class="fas fa-paper-plane"></i> <span>Kirim Pesan</span>
-                </button>
-            </form>
-
-            <div class="form-success" id="formSuccess">
-                <i class="fas fa-check-circle"></i>
-                <h3>Pesan Terkirim!</h3>
-                <p>Terima kasih, saya akan segera membalas pesan Anda.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <p>© 2026 JITRON. Crafted with <span class="gold">♦</span> passion.</p>
-    </footer>
-
-    <!-- 10. FITUR BARU: MODAL POPUP & SCROLL TO TOP -->
-    <div class="modal-overlay" id="projectModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-            <h3 id="modalTitle">Project Title</h3>
-            <p id="modalDesc">Project description goes here.</p>
-            <div class="modal-tech">
-                <span>Tech Stack:</span>
-                <p id="modalTech">React, Node.js</p>
-            </div>
-            <div class="modal-actions">
-                <a href="#" class="btn btn-primary btn-sm"><i class="fab fa-github"></i> Source Code</a>
-                <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-            </div>
-        </div>
+    <div class="loader-bar">
+      <div class="loader-bar-fill"></div>
     </div>
+  </div>
+</div>
 
-    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+<!-- Particles Background -->
+<canvas id="particles"></canvas>
 
-    <!-- SCRIPT -->
-    <script src="script.js"></script>
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <span class="logo-text">JITRON</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="purnama-toggle" id="purnamaToggle" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+  </button>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-text fade-in">
+      <p class="greeting">Hello, I'm</p>
+      <h1 class="name">JITRON</h1>
+      <div class="typing-container">
+        <span class="typing-text">I am a <span class="typed-text"></span><span class="cursor"></span></span>
+      </div>
+      <div class="info-line">
+        <span class="badge">NIM: 224611187</span>
+        <span class="badge">Teknik Informatika</span>
+        <span class="badge">Mahasiswa Uki Toraja</span>
+      </div>
+      <p class="description">
+        Mengubah ide menjadi <span class="highlight">pengalaman digital</span> yang elegan dan fungsional. Fokus pada pengembangan web modern, UI/UX design, dan solusi digital premium.
+      </p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-primary">
+          <i class="fas fa-briefcase"></i>
+          <span>Hire Me</span>
+        </a>
+        <a href="cv-jitron.pdf" class="btn btn-secondary" download>
+          <i class="fas fa-download"></i>
+          <span>Download CV</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-image fade-in delay">
+      <div class="photo-frame">
+        <div class="frame-glow"></div>
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="frame-glass">
+          <div class="photo-placeholder">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face" alt="JITRON Portrait" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback').style.display='flex';">
+            <div class="fallback" style="display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%;">
+              <i class="fas fa-user"></i>
+              <span>JITRON</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="social-icons">
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="section-container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" data-target="50">0</div>
+        <p>Projects Completed</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-target="35">0</div>
+        <p>Happy Clients</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-target="3">0</div>
+        <p>Years Experience</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-target="12">0</div>
+        <p>Awards Won</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section" id="skills">
+  <div class="section-container">
+    <h2 class="section-title">Skills & Expertise</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <i class="fas fa-code"></i>
+        <h3>Web Development</h3>
+        <p>HTML, CSS, JavaScript, React, Node.js</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-palette"></i>
+        <h3>UI/UX Design</h3>
+        <p>Figma, Adobe XD, Design Systems</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-server"></i>
+        <h3>Backend & DB</h3>
+        <p>MySQL, MongoDB, Express, REST API</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Mobile Dev</h3>
+        <p>React Native, Flutter, Responsive</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="section" id="services">
+  <div class="section-container">
+    <h2 class="section-title">My Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3>Web Development</h3>
+        <p>Membangun website responsif, cepat, dan modern menggunakan teknologi terbaru.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-pen-nib"></i>
+        </div>
+        <h3>UI/UX Design</h3>
+        <p>Merancang antarmuka pengguna yang estetis, intuitif, dan berfokus pada pengalaman terbaik.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-mobile-screen"></i>
+        </div>
+        <h3>Mobile Development</h3>
+        <p>Mengembangkan aplikasi mobile cross-platform yang mulus dan fungsional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="section" id="gallery">
+  <div class="section-container">
+    <h2 class="section-title">My Work</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item" data-title="E-Commerce Platform" data-desc="Full-featured online shopping platform with payment integration." data-tech="React, Node.js, MongoDB">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop" alt="E-Commerce Platform" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>E-Commerce Platform</h3>
+            <p>Web Development</p>
+            <a href="#" class="gallery-link" onclick="event.stopPropagation()"><i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-title="Analytics Dashboard" data-desc="Real-time data visualization dashboard for business metrics." data-tech="React, D3.js, Firebase">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Analytics Dashboard" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Analytics Dashboard</h3>
+            <p>UI/UX Design</p>
+            <a href="#" class="gallery-link" onclick="event.stopPropagation()"><i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-title="Mobile Banking App" data-desc="Secure and intuitive mobile banking application." data-tech="React Native, Express">
+        <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&h=450&fit=crop" alt="Mobile Banking App" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Mobile Banking App</h3>
+            <p>Mobile Dev</p>
+            <a href="#" class="gallery-link" onclick="event.stopPropagation()"><i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-title="Task Management" data-desc="Collaborative task management system with real-time updates." data-tech="Vue.js, Node.js, Socket.io">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Task Management" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Task Management</h3>
+            <p>Full Stack</p>
+            <a href="#" class="gallery-link" onclick="event.stopPropagation()"><i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-title="API Integration" data-desc="Robust RESTful API with comprehensive documentation." data-tech="Node.js, Express, PostgreSQL">
+        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=450&fit=crop" alt="API Integration" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>API Integration</h3>
+            <p>Backend</p>
+            <a href="#" class="gallery-link" onclick="event.stopPropagation()"><i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item" data-title="Portfolio Website" data-desc="Modern portfolio website with smooth animations." data-tech="HTML, CSS, JavaScript">
+        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=450&fit=crop" alt="Portfolio Website" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Portfolio Website</h3>
+            <p>Frontend</p>
+            <a href="#" class="gallery-link" onclick="event.stopPropagation()"><i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section" id="contact">
+  <div class="section-container">
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="contact-desc">Mari berkolaborasi membuat sesuatu yang luar biasa.</p>
+    <form class="contact-form" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Nama Lengkap</label>
+          <input type="text" id="name" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="email" placeholder="john@example.com" required>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label><i class="fas fa-heading"></i> Subjek</label>
+        <input type="text" id="subject" placeholder="Project Collaboration">
+      </div>
+      <div class="form-group full">
+        <label><i class="fas fa-comment-dots"></i> Pesan</label>
+        <textarea id="message" placeholder="Tell me about your project..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary submit-btn">
+        <i class="fas fa-paper-plane"></i>
+        <span>Kirim Pesan</span>
+      </button>
+    </form>
+    <div class="form-success" id="formSuccess">
+      <i class="fas fa-check-circle"></i>
+      <h3>Pesan Terkirim!</h3>
+      <p>Terima kasih, saya akan segera membalas pesan Anda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2026 JITRON. Crafted with <span class="gold">♦</span> passion.</p>
+</footer>
+
+<!-- Project Modal -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose" aria-label="Close modal"><i class="fas fa-times"></i></button>
+    <h3 id="modalTitle">Project Title</h3>
+    <p id="modalDesc">Project description goes here.</p>
+    <div class="modal-tech">
+      <span>Tech Stack:</span>
+      <p id="modalTech">React, Node.js</p>
+    </div>
+    <div class="modal-actions">
+      <a href="#" class="btn btn-secondary btn-sm"><i class="fab fa-github"></i> Source Code</a>
+      <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+    </div>
+  </div>
+</div>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+// ============ LOADING SCREEN ============
+window.addEventListener("load", () => {
+  const loadingScreen = document.getElementById("loadingScreen");
+  setTimeout(() => {
+    loadingScreen.classList.add("hide");
+    setTimeout(() => {
+      loadingScreen.style.display = "none";
+    }, 800);
+  }, 2000);
+});
+
+// ============ PARTICLES BACKGROUND ============
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let particles = [];
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+class Particle {
+  constructor() {
+    this.reset();
+    this.y = Math.random() * canvas.height;
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.6 + 0.2;
+    this.color = Math.random() > 0.7 ? "212, 175, 55" : "139, 92, 246";
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = `rgba(${this.color}, 0.8)`;
+    ctx.fill();
+  }
+}
+function initParticles() {
+  particles = [];
+  const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle());
+  }
+}
+function connectParticles() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(139, 92, 246, ${0.15 * (1 - dist / 120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p) => {
+    p.update();
+    p.draw();
+  });
+  connectParticles();
+  requestAnimationFrame(animate);
+}
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  initParticles();
+});
+resizeCanvas();
+initParticles();
+animate();
+
+// ============ MOBILE MENU ============
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+menuToggle.addEventListener("click", () => {
+  menuToggle.classList.toggle("active");
+  navLinks.classList.toggle("open");
+  document.body.style.overflow = navLinks.classList.contains("open") ? "hidden" : "";
+});
+document.querySelectorAll(".nav-links a").forEach((link) => {
+  link.addEventListener("click", () => {
+    menuToggle.classList.remove("active");
+    navLinks.classList.remove("open");
+    document.body.style.overflow = "";
+  });
+});
+
+// ============ ACTIVE NAV LINK ON SCROLL ============
+const sections = document.querySelectorAll("section[id]");
+const navItems = document.querySelectorAll(".nav-links a");
+const navbar = document.querySelector(".navbar");
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  if (scrollY > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+  sections.forEach((section) => {
+    const top = section.offsetTop - 100;
+    const height = section.offsetHeight;
+    const id = section.getAttribute("id");
+    if (scrollY >= top && scrollY < top + height) {
+      navItems.forEach((a) => a.classList.remove("active"));
+      const active = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if (active) active.classList.add("active");
+    }
+  });
+});
+
+// ============ PURNAMA TOGGLE (DARK/LIGHT MODE) ============
+const purnamaToggle = document.getElementById("purnamaToggle");
+const purnamaIcon = purnamaToggle.querySelector("i");
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light") {
+  document.body.classList.add("light-mode");
+  purnamaIcon.classList.remove("fa-moon");
+  purnamaIcon.classList.add("fa-sun");
+}
+purnamaToggle.addEventListener("click", function () {
+  document.body.classList.toggle("light-mode");
+  if (document.body.classList.contains("light-mode")) {
+    purnamaIcon.classList.remove("fa-moon");
+    purnamaIcon.classList.add("fa-sun");
+    localStorage.setItem("theme", "light");
+  } else {
+    purnamaIcon.classList.remove("fa-sun");
+    purnamaIcon.classList.add("fa-moon");
+    localStorage.setItem("theme", "dark");
+  }
+  this.style.transform = "rotate(360deg) scale(1.2)";
+  setTimeout(() => {
+    this.style.transform = "rotate(0deg) scale(1)";
+  }, 600);
+});
+
+// ============ SCROLL REVEAL ============
+const observerOptions = {
+  threshold: 0.15,
+  rootMargin: "0px 0px -50px 0px",
+};
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
+    }
+  });
+}, observerOptions);
+document.querySelectorAll(".skill-card, .gallery-item, .service-card").forEach((el, i) => {
+  el.style.opacity = "0";
+  el.style.transform = "translateY(30px)";
+  el.style.transition = `all 0.6s ease ${i * 0.1}s`;
+  observer.observe(el);
+});
+
+// ============ SMOOTH SCROLL ============
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+    if (href === "#") return;
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  });
+});
+
+// ============ CONTACT FORM HANDLING ============
+const contactForm = document.getElementById("contactForm");
+const formSuccess = document.getElementById("formSuccess");
+if (contactForm) {
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    if (!name || !email || !message) {
+      alert("Mohon lengkapi semua field yang wajib diisi.");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Format email tidak valid.");
+      return;
+    }
+    contactForm.style.display = "none";
+    formSuccess.classList.add("show");
+    setTimeout(() => {
+      contactForm.reset();
+      contactForm.style.display = "block";
+      formSuccess.classList.remove("show");
+    }, 6000);
+  });
+}
+
+// ============ PARALLAX EFFECT ON MOUSE MOVE ============
+document.addEventListener("mousemove", (e) => {
+  if (window.innerWidth < 768) return;
+  const mouseX = e.clientX / window.innerWidth;
+  const mouseY = e.clientY / window.innerHeight;
+  const photoFrame = document.querySelector(".photo-frame");
+  if (photoFrame) {
+    const moveX = (mouseX - 0.5) * 20;
+    const moveY = (mouseY - 0.5) * 20;
+    photoFrame.style.transform = `translate(${moveX}px, ${moveY}px) rotateY(${mouseX * 10 - 5}deg)`;
+  }
+});
+
+console.log("%c✨ JITRON Portfolio Loaded Successfully!", "color: #a78bfa; font-size: 14px; font-weight: bold;");
+
+// ============ TYPING ANIMATION ============
+const typedTextSpan = document.querySelector('.typed-text');
+const cursorSpan = document.querySelector('.cursor');
+const textArray = ["Web Developer", "UI/UX Designer", "Mobile Developer", "Problem Solver"];
+const typingDelay = 100;
+const erasingDelay = 50;
+const newTextDelay = 2000;
+let textArrayIndex = 0;
+let charIndex = 0;
+function type() {
+  if (charIndex < textArray[textArrayIndex].length) {
+    if (!cursorSpan.classList.contains('typing')) cursorSpan.classList.add('typing');
+    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(type, typingDelay);
+  } else {
+    cursorSpan.classList.remove('typing');
+    setTimeout(erase, newTextDelay);
+  }
+}
+function erase() {
+  if (charIndex > 0) {
+    if (!cursorSpan.classList.contains('typing')) cursorSpan.classList.add('typing');
+    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+    charIndex--;
+    setTimeout(erase, erasingDelay);
+  } else {
+    cursorSpan.classList.remove('typing');
+    textArrayIndex++;
+    if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+    setTimeout(type, typingDelay + 1100);
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (textArray.length) setTimeout(type, newTextDelay + 250);
+});
+
+// ============ STATISTICS COUNTER ============
+const statNumbers = document.querySelectorAll('.stat-number');
+let counted = false;
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !counted) {
+      counted = true;
+      statNumbers.forEach(stat => {
+        const target = +stat.getAttribute('data-target');
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        const updateCounter = () => {
+          current += increment;
+          if (current < target) {
+            stat.innerText = Math.ceil(current) + '+';
+            requestAnimationFrame(updateCounter);
+          } else {
+            stat.innerText = target + '+';
+          }
+        };
+        updateCounter();
+      });
+    }
+  });
+}, { threshold: 0.5 });
+if (document.querySelector('.stats-section')) {
+  statsObserver.observe(document.querySelector('.stats-section'));
+}
+
+// ============ PROJECT MODAL ============
+const galleryItems = document.querySelectorAll('.gallery-item');
+const modal = document.getElementById('projectModal');
+const modalClose = document.getElementById('modalClose');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalTech = document.getElementById('modalTech');
+galleryItems.forEach(item => {
+  item.addEventListener('click', () => {
+    modalTitle.textContent = item.getAttribute('data-title');
+    modalDesc.textContent = item.getAttribute('data-desc');
+    modalTech.textContent = item.getAttribute('data-tech');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+function closeModal() {
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+});
+
+// ============ SCROLL TO TOP ============
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 500) {
+    scrollTopBtn.classList.add('visible');
+  } else {
+    scrollTopBtn.classList.remove('visible');
+  }
+});
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
 </body>
 </html>
